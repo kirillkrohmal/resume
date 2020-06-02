@@ -1,4 +1,4 @@
-package com.devstudy.servlet;
+package com.devstudy.servlet.controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
