@@ -1,8 +1,8 @@
 package com.devstudy.servlet.controller;
 
 import com.devstudy.servlet.service.NameService;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

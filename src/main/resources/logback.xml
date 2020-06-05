@@ -4,10 +4,10 @@
     <!-- To enable JMX Management -->
     <jmxConfigurator/>
 
-    <property name="TOPJAVA_ROOT" value="C:/project/topjava/log/app.log" />
+    <property name="RESUME_ROOT" value="C:/project/resume/log/app.log" />
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>${TOPJAVA_ROOT}</file>
+        <file>${RESUME_ROOT}</file>
 
         <encoder>
             <charset>UTF-8</charset>
