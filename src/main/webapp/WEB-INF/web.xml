@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>AddServlet</servlet-name>
-        <servlet-class>com.devstudy.servlet.controller.AddServlet</servlet-class>
+        <servlet-class>com.devstudy.resume.controller.AddServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddServlet</servlet-name>
