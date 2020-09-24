@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="skill_category")
-public class SkillCategory {
+public class SkillCategory extends AbstractEntity<Long>{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id",unique = true, nullable = false)

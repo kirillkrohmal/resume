@@ -1,5 +1,7 @@
 package com.devstudy.resume.controller;
 
+import com.devstudy.resume.entity.Profile;
+import com.devstudy.resume.repository.storage.ProfileRepository;
 import com.devstudy.resume.service.NameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class PublicDataController {
     @Autowired
-    private NameService nameService;
+    private ProfileRepository profileRepository;
 
     @RequestMapping(value = "{/uid}", method = RequestMethod.GET)
     public String getProfile(@PathVariable("uid") String uid, Model model) {
-        String fullName = nameService.convertName(uid);
+        Profile profile = profileRepository.findByUid(uid);
 
-        model.addAttribute("fullName", fullName);
+        if (profile == null) {
+            return "File not found";
+        }
 
+        model.addAttribute("profile", profile);
         return "profile";
     }
 }

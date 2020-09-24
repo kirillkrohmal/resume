@@ -1,16 +1,22 @@
 package com.devstudy.resume.entity;
 
 
+import org.joda.time.Years;
+
 import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "profile")
-public class Profile {
+public class Profile extends AbstractEntity<Long> implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "PROFILE_ID_GENERATOR", sequenceName = "PROFILE_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROFILE_ID_GENERATOR")
     @Column(unique = true, nullable = false)
     private Long id;
 
@@ -60,25 +66,10 @@ public class Profile {
     public String completed;
 
     @Column(name = "created", nullable = false)
-    public String created;
+    public Timestamp created;
 
-    @Column(name="skype")
-    private Date skype;
-
-    @Column(name = "vkontakte", nullable = false)
-    public String vkontakte;
-
-    @Column(name = "facebook", nullable = false)
-    public String facebook;
-
-    @Column(name = "linkedin", nullable = false)
-    public String linkedin;
-
-    @Column(name = "github", nullable = false)
-    public String github;
-
-    @Column(name = "stackoverflow", nullable = false)
-    public String stackoverflow;
+    @Embedded
+    public Contacts contacts;
 
     @OneToMany(mappedBy = "profile", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     public List<Certificate> certificates;
@@ -98,6 +89,13 @@ public class Profile {
     @OneToMany(mappedBy = "profile", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     public List<Practic> practics;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -211,59 +209,33 @@ public class Profile {
         this.completed = completed;
     }
 
-    public String getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getSkype() {
-        return skype;
+    @Transient
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
-    public void setSkype(Date skype) {
-        this.skype = skype;
+
+    @Transient
+    public String getProfilePhoto(){
+        if(largePhoto != null) {
+            return largePhoto;
+        } else {
+            return "/static/img/profile-placeholder.png";
+        }
     }
 
-    public String getVkontakte() {
-        return vkontakte;
-    }
-
-    public void setVkontakte(String vkontakte) {
-        this.vkontakte = vkontakte;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
-    }
-
-    public String getGithub() {
-        return github;
-    }
-
-    public void setGithub(String github) {
-        this.github = github;
-    }
-
-    public String getStackoverflow() {
-        return stackoverflow;
-    }
-
-    public void setStackoverflow(String stackoverflow) {
-        this.stackoverflow = stackoverflow;
+    public String updateProfilePhotos(String largePhoto, String smallPhoto) {
+        String oldLargeImage = this.largePhoto;
+        setLargePhoto(largePhoto);
+        setSmallPhoto(smallPhoto);
+        return oldLargeImage;
     }
 }
