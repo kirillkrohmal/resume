@@ -1,7 +1,7 @@
 package com.devstudy.resume.service.impl;
 
 import com.devstudy.resume.service.NameService;
-import org.apache.commons.lang3.text.WordUtils;
+import org.apache.commons.lang.WordUtils;
 
 public class NameServiceImpl implements NameService {
     @Override

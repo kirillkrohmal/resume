@@ -74,6 +74,10 @@ public class Profile extends AbstractEntity<Long> implements Serializable {
     @OneToMany(mappedBy = "profile", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     public List<Certificate> certificates;
 
+
+    @OneToMany(mappedBy = "profile", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    public List<Skill> skills;
+
     @OneToMany(mappedBy = "profile", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     public List<Course> course;
 
@@ -222,6 +226,13 @@ public class Profile extends AbstractEntity<Long> implements Serializable {
         return firstName + " " + lastName;
     }
 
+    public List<Skill> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
 
     @Transient
     public String getProfilePhoto(){
